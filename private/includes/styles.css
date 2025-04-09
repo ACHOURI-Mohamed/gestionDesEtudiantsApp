@@ -1,0 +1,5 @@
+/* Center text in the table */
+#myTable th, #myTable td {
+    text-align: center; /* Center horizontally */
+    vertical-align: middle; /* Center vertically */
+}
