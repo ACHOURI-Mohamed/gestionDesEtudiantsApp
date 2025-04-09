@@ -92,6 +92,80 @@ public function addSection($designation,$description){
     }
 }
 
+//get all the students from the database
+public function getStudents(){
+    try{
+        $query = "SELECT * FROM etudiant";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    catch(PDOException $e){
+        throw new Exception('connection failed ' . $e->getMessage());
+
+    }
+
+
+
+
+}
+//get all the sections from the database
+public function getSections(){
+    try{
+        $query = "SELECT * FROM section;";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    catch(PDOException $e){
+        throw new Exception('connection failed ' . $e->getMessage());
+
+    }
+}
+//get students_info 'etudiant_info' is a view,already existed in db insat, that contains the students and their sections
+public function getStudentsInfo(){
+    try{
+        $query = "SELECT id,name,image,date(birthday) as birthday,section from etudiant_info;";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    catch(PDOException $e){
+        throw new Exception('connection failed ' . $e->getMessage());
+
+    }
+
+}
+//get student by name
+public function getStudentByName($name){
+    try{
+        $query = "SELECT * from etudiant where name = :name;";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->bindParam(':name', $name);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+    catch(PDOException $e){
+        throw new Exception('connection failed ' . $e->getMessage());
+
+    }
+
+}
+//get student by id
+public function getStudentById($id){
+    try{
+        $query = "SELECT * from etudiant where id = :id;";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+    catch(PDOException $e){
+        throw new Exception('connection failed ' . $e->getMessage());
+
+    }
+
+}
 
 
 
