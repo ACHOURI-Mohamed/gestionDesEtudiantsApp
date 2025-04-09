@@ -57,6 +57,41 @@ catch(PDOException $e){
 }
 }
 
+//add a new student to the database
+public function addStudent($name,$birthday,$image=null,$section_id){
+    try{
+        if($image === null){
+            $image = 'private/uploads/default.png';
+            // Default image path WHEN NO IMAGE IS PROVIDED
+        }
+        $query = "INSERT INTO etudiant (name,birthday,image,section_id) VALUES (:name,:birthday,:image,:section_id);";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->bindParam(':name', $name);
+        $stmt->bindParam(':birthday', $birthday);
+        $stmt->bindParam(':image', $image);
+        $stmt->bindParam(':section_id', $section_id);
+        return $stmt->execute();
+    }
+    catch(PDOException $e){
+        throw new Exception('connection failed ' . $e->getMessage());
+
+    }
+}
+//add a new section to the database
+public function addSection($designation,$description){
+    try{
+        $query = "INSERT INTO section (designation,description) VALUES (:designation,:description);";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->bindParam(':designation', $designation);
+        $stmt->bindParam(':description', $description);
+        return $stmt->execute();
+    }
+    catch(PDOException $e){
+        throw new Exception('connection failed ' . $e->getMessage());
+
+    }
+}
+
 
 
 
